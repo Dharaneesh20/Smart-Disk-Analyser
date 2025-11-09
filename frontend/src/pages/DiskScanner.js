@@ -80,7 +80,7 @@ function DiskScanner() {
               value={path}
               onChange={(e) => setPath(e.target.value)}
               fullWidth
-              placeholder="e.g., C:\Users\YourName\Documents or /home/user/documents"
+              placeholder="e.g., C:\\Users\\YourName\\Documents or /home/user/documents"
               helperText="Enter the full path to the directory you want to scan"
             />
 

@@ -1,0 +1,75 @@
+{
+  "name": "smart-disk-analyzer",
+  "version": "1.0.0",
+  "description": "Free Open Source Disk & Partition Manager for Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --x64",
+    "build:win32": "electron-builder --win --ia32",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.diskanalyzer.app",
+    "productName": "Smart Disk Analyzer",
+    "copyright": "Copyright © 2025",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Smart Disk Analyzer",
+      "license": "../LICENSE"
+    },
+    "files": [
+      "**/*",
+      "!**/{.git,.gitignore,.vscode,node_modules,package-lock.json}"
+    ],
+    "extraResources": [
+      {
+        "from": "../backend/target/disk-cleanup-partition-assistant-1.0.0.jar",
+        "to": "backend.jar"
+      },
+      {
+        "from": "../frontend/build",
+        "to": "frontend"
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "author": {
+    "name": "Dharaneesh20",
+    "email": "dharaneeshrs777@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "find-process": "^1.4.7"
+  }
+}

@@ -4,6 +4,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Arrays;
 
 /**
  * Utility class for MD5 hash calculation
@@ -41,20 +43,21 @@ public class MD5Util {
      * Quick hash for large files - hash first 1MB + size + last 1MB
      */
     private static String calculateQuickHash(String filePath, long fileSize) throws IOException {
-        try (FileInputStream fis = new FileInputStream(filePath)) {
-            byte[] buffer = new byte[1024 * 1024]; // 1MB
-            int read = fis.read(buffer);
-            String hash = DigestUtils.md5Hex(buffer, 0, read);
-            
-            // Skip to last 1MB
-            long skipBytes = fileSize - (1024 * 1024);
-            if (skipBytes > 1024 * 1024) {
-                fis.skip(skipBytes - (1024 * 1024));
-                read = fis.read(buffer);
-                hash += DigestUtils.md5Hex(buffer, 0, read);
-            }
-            
-            return hash + "_" + fileSize;
+        final int CHUNK = 1024 * 1024; // 1MB
+        try (RandomAccessFile raf = new RandomAccessFile(filePath, "r")) {
+            byte[] buffer = new byte[CHUNK];
+
+            // read first chunk
+            int readFirst = raf.read(buffer);
+            String firstHash = DigestUtils.md5Hex(Arrays.copyOf(buffer, Math.max(0, readFirst)));
+
+            // read last chunk
+            long lastPos = Math.max(0, fileSize - CHUNK);
+            raf.seek(lastPos);
+            int readLast = raf.read(buffer);
+            String lastHash = DigestUtils.md5Hex(Arrays.copyOf(buffer, Math.max(0, readLast)));
+
+            return firstHash + "_" + lastHash + "_" + fileSize;
         }
     }
 }

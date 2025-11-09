@@ -146,6 +146,11 @@ public class DiskScannerService {
         
         long groupId = 1;
         for (String hash : duplicateHashes) {
+            // Skip null or empty hashes
+            if (hash == null || hash.trim().isEmpty()) {
+                continue;
+            }
+            
             List<FileInfo> duplicates = fileInfoRepository.findAll().stream()
                     .filter(f -> hash.equals(f.getMd5Hash()))
                     .collect(Collectors.toList());
@@ -218,12 +223,16 @@ public class DiskScannerService {
         
         List<Object[]> typeCounts = fileInfoRepository.countByFileType();
         for (Object[] row : typeCounts) {
-            typeDistribution.put((String) row[0], (Long) row[1]);
+            if (row[0] != null && row[1] != null) {
+                typeDistribution.put((String) row[0], (Long) row[1]);
+            }
         }
         
         List<Object[]> typeSizes = fileInfoRepository.sumSizeByFileType();
         for (Object[] row : typeSizes) {
-            sizeByType.put((String) row[0], (Long) row[1]);
+            if (row[0] != null && row[1] != null) {
+                sizeByType.put((String) row[0], (Long) row[1]);
+            }
         }
         
         stats.setFileTypeDistribution(typeDistribution);

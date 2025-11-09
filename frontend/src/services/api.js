@@ -7,7 +7,26 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 60000, // 60 seconds timeout
 });
+
+// Add response interceptor for better error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // Server responded with error status
+      console.error('API Error:', error.response.data);
+    } else if (error.request) {
+      // Request made but no response
+      console.error('Network Error: No response from server');
+    } else {
+      // Error setting up request
+      console.error('Request Error:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Disk Scanner APIs
 export const scanDirectory = (scanRequest) => {
