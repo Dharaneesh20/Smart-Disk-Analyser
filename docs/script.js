@@ -87,9 +87,11 @@ function setupFallbackLinks() {
     const installerBtn = document.getElementById('download-installer');
     const portableBtn = document.getElementById('download-portable');
     
-    // Point to releases page as fallback
+    // Use direct link to the latest Windows installer
+    const installerUrl = 'https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/download/Windows-11-x86/Smart.Disk.Analyzer.Setup.1.0.0.exe';
     const releasesUrl = `https://github.com/${GITHUB_REPO}/releases/latest`;
-    installerBtn.href = releasesUrl;
+    
+    installerBtn.href = installerUrl;
     portableBtn.href = releasesUrl;
     
     installerBtn.onclick = null;
@@ -281,7 +283,7 @@ function checkSystemCompatibility() {
 }
 
 /**
- * Add keyboard navigation support
+ * Setup keyboard navigation support
  */
 function setupKeyboardNavigation() {
     document.addEventListener('keydown', function(e) {
@@ -292,7 +294,78 @@ function setupKeyboardNavigation() {
                 document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
             }
         }
+        
+        // Close lightbox on Escape
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
     });
+}
+
+/**
+ * Setup image lightbox for screenshots
+ */
+function setupImageLightbox() {
+    const screenshotImages = document.querySelectorAll('.screenshot-item img');
+    
+    screenshotImages.forEach(img => {
+        img.addEventListener('click', function() {
+            openLightbox(this.src, this.alt);
+        });
+    });
+}
+
+/**
+ * Open image in lightbox
+ */
+function openLightbox(src, alt) {
+    // Create lightbox if it doesn't exist
+    let lightbox = document.getElementById('lightbox');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <span class="lightbox-close">&times;</span>
+                <img class="lightbox-image" src="" alt="">
+                <div class="lightbox-caption"></div>
+            </div>
+        `;
+        document.body.appendChild(lightbox);
+        
+        // Close on click outside
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Close button
+        lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    }
+    
+    // Set image and show
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+    
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightboxCaption.textContent = alt;
+    
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Close lightbox
+ */
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
 /**
@@ -307,6 +380,7 @@ async function init() {
     secureExternalLinks();
     setupDownloadButtons();
     setupKeyboardNavigation();
+    setupImageLightbox();
     checkSystemCompatibility();
     
     // Fetch and update release information

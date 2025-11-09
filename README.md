@@ -22,13 +22,39 @@ A powerful, completely free alternative to AOMEI Partition Assistant and other c
 ## 📥 Download
 
 ### Windows
-- **[Windows Installer](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.exe) - Recommended for most users
+- **[Windows Installer](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/download/Windows-11-x86/Smart.Disk.Analyzer.Setup.1.0.0.exe)** (.exe) - Recommended for most users
 - **[Portable Version](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.exe) - No installation required
 
 ### Linux (Ubuntu/Debian)
 - **[Debian Package](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.deb) - For Ubuntu, Debian, Linux Mint
 
 **Visit our [website](https://dharaneesh20.github.io/Smart-Disk-Analyser/) for detailed download instructions and system requirements.**
+
+## 📸 Screenshots
+
+<div align="center">
+
+### Dashboard - Real-time Disk Statistics
+![Dashboard](docs/images/Dashboard.png)
+*Real-time disk statistics, partition health monitoring, and visual charts showing file type distribution and storage usage.*
+
+### Disk Scanner - Analyze Directory Contents
+![Disk Scanner](docs/images/Disk%20Scanner.png)
+*Recursively scan directories with customizable depth. View detailed file information including name, type, size, and path.*
+
+### Partition Manager - Comprehensive Disk Management
+![Partition Manager](docs/images/Partion%20Manager.png)
+*Comprehensive partition management with health indicators. View capacity, usage, and perform operations on all partitions.*
+
+### Duplicate Finder - Find Redundant Files
+![Duplicate Finder](docs/images/Duplicate%20Finder.png)
+*MD5 hash-based duplicate detection. Find duplicate groups and see potential space savings at a glance.*
+
+### Large Files - Identify Space Consumers
+![Large Files](docs/images/Large%20Files.png)
+*Set size thresholds to find large files consuming disk space. Perfect for identifying cleanup candidates.*
+
+</div>
 
 ## ✨ Features
 
