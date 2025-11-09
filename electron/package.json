@@ -1,13 +1,15 @@
 {
   "name": "smart-disk-analyzer",
   "version": "1.0.0",
-  "description": "Free Open Source Disk & Partition Manager for Windows",
+  "description": "Free Open Source Disk & Partition Manager for Windows & Linux",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
     "build:win": "electron-builder --win --x64",
     "build:win32": "electron-builder --win --ia32",
+    "build:linux": "electron-builder --linux deb",
+    "build:linux-all": "electron-builder --linux deb rpm AppImage",
     "pack": "electron-builder --dir"
   },
   "build": {
@@ -41,6 +43,47 @@
       "createStartMenuShortcut": true,
       "shortcutName": "Smart Disk Analyzer",
       "license": "../LICENSE"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "System;Utility",
+      "maintainer": "dharaneeshrs777@gmail.com",
+      "vendor": "Smart Disk Analyzer Team",
+      "synopsis": "Free Open Source Disk & Partition Manager",
+      "description": "Smart Disk Analyzer provides disk space analysis, partition management, duplicate file detection, and system health monitoring for Linux systems.",
+      "desktop": {
+        "Name": "Smart Disk Analyzer",
+        "Comment": "Disk & Partition Manager",
+        "Categories": "System;Utility;FileTools;",
+        "Keywords": "disk;partition;cleanup;storage;analyzer;",
+        "StartupNotify": "true"
+      }
+    },
+    "deb": {
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3",
+        "openjdk-17-jre | openjdk-18-jre | openjdk-19-jre"
+      ],
+      "compression": "xz",
+      "priority": "optional"
     },
     "files": [
       "**/*",
