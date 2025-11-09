@@ -16,7 +16,7 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host "Backend build failed!" -ForegroundColor Red
     exit 1
 }
-Write-Host "✓ Backend built successfully" -ForegroundColor Green
+Write-Host "[OK] Backend built successfully" -ForegroundColor Green
 
 # Step 2: Build Frontend
 Write-Host "`n[2/5] Building Frontend (React)..." -ForegroundColor Yellow
@@ -26,7 +26,7 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host "Frontend build failed!" -ForegroundColor Red
     exit 1
 }
-Write-Host "✓ Frontend built successfully" -ForegroundColor Green
+Write-Host "[OK] Frontend built successfully" -ForegroundColor Green
 
 # Step 3: Setup Electron
 Write-Host "`n[3/5] Setting up Electron..." -ForegroundColor Yellow
@@ -34,7 +34,7 @@ Set-Location "$projectRoot\electron"
 if (!(Test-Path "node_modules")) {
     npm install
 }
-Write-Host "✓ Electron setup complete" -ForegroundColor Green
+Write-Host "[OK] Electron setup complete" -ForegroundColor Green
 
 # Step 4: Download JRE (if not exists)
 Write-Host "`n[4/5] Checking for JRE..." -ForegroundColor Yellow
@@ -50,17 +50,20 @@ if (!(Test-Path $jrePath)) {
     if ($response -ne 'Y' -and $response -ne 'y') {
         exit 1
     }
-    Write-Host "⚠ Building without embedded JRE (requires Java on target system)" -ForegroundColor Yellow
+    Write-Host "[WARNING] Building without embedded JRE (requires Java on target system)" -ForegroundColor Yellow
 } else {
-    Write-Host "✓ JRE found at $jrePath" -ForegroundColor Green
+    Write-Host "[OK] JRE found at $jrePath" -ForegroundColor Green
 }
 
 # Step 5: Build Electron App
 Write-Host "`n[5/5] Building Electron Application..." -ForegroundColor Yellow
 Set-Location "$projectRoot\electron"
 
+# Set environment to skip code signing
+$env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
+
 # Build for Windows x86 (32-bit)
-Write-Host "Building for Windows x86 (32-bit)..." -ForegroundColor Cyan
+Write-Host "Building for Windows x86 32-bit..." -ForegroundColor Cyan
 npm run build:win32
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Windows x86 build failed!" -ForegroundColor Red
@@ -68,7 +71,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # Build for Windows x64 (64-bit)
-Write-Host "Building for Windows x64 (64-bit)..." -ForegroundColor Cyan
+Write-Host "Building for Windows x64 64-bit..." -ForegroundColor Cyan
 npm run build:win
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Windows x64 build failed!" -ForegroundColor Red
@@ -85,7 +88,7 @@ Write-Host "  $projectRoot\electron\dist" -ForegroundColor Cyan
 Write-Host "`nAvailable installers:" -ForegroundColor White
 Get-ChildItem "$projectRoot\electron\dist" -Filter "*.exe" | ForEach-Object {
     $size = [math]::Round($_.Length / 1MB, 2)
-    Write-Host "  - $($_.Name) ($size MB)" -ForegroundColor Green
+    Write-Host "  - $($_.Name) - Size: $size MB" -ForegroundColor Green
 }
 
 Write-Host "`n" -ForegroundColor White

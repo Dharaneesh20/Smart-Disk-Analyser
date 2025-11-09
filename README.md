@@ -1,13 +1,34 @@
 # Smart Disk Analyzer
 
-> **Free & Open Source Disk & Partition Manager for Windows 11/10**
+> **Free & Open Source Disk & Partition Manager for Windows & Linux**
 
 A powerful, completely free alternative to AOMEI Partition Assistant and other commercial disk management tools. No registration, no hidden costs, no data collection - just a clean, open-source solution for managing your disks and partitions.
 
+**🌐 Official Website**: [https://dharaneesh20.github.io/Smart-Disk-Analyser/](https://dharaneesh20.github.io/Smart-Disk-Analyser/)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows%2011%20%7C%2010-blue)
+![Platform](https://img.shields.io/badge/platform-Windows%2011%20%7C%2010%20%7C%20Linux-blue)
 ![Java](https://img.shields.io/badge/java-17%2B-orange)
 ![React](https://img.shields.io/badge/react-18-blue)
+
+## 🔗 Quick Links
+
+- 🌐 **[Official Website](https://dharaneesh20.github.io/Smart-Disk-Analyser/)** - Features, downloads, and documentation
+- 📥 **[Download Latest Release](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** - Get Windows or Linux version
+- 🐛 **[Report Issues](https://github.com/Dharaneesh20/Smart-Disk-Analyser/issues)** - Bug reports and feature requests
+- 💬 **[Discussions](https://github.com/Dharaneesh20/Smart-Disk-Analyser/discussions)** - Community discussions and support
+- 📖 **[Documentation](https://dharaneesh20.github.io/Smart-Disk-Analyser/#docs)** - User guides and API reference
+
+## 📥 Download
+
+### Windows
+- **[Windows Installer](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.exe) - Recommended for most users
+- **[Portable Version](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.exe) - No installation required
+
+### Linux (Ubuntu/Debian)
+- **[Debian Package](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)** (.deb) - For Ubuntu, Debian, Linux Mint
+
+**Visit our [website](https://dharaneesh20.github.io/Smart-Disk-Analyser/) for detailed download instructions and system requirements.**
 
 ## ✨ Features
 
@@ -43,14 +64,34 @@ A powerful, completely free alternative to AOMEI Partition Assistant and other c
 
 ## 🚀 Getting Started
 
-### For End Users (Windows Application)
+### For End Users
 
-1. **Download** the latest installer from [Releases](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases)
+#### Windows Installation
+
+1. **Download** the latest installer from [Releases](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest) or our [website](https://dharaneesh20.github.io/Smart-Disk-Analyser/)
+   - **Full Installer** (recommended): Complete installation with Start Menu integration
+   - **Portable Version**: Run directly without installation
 2. **Run** the installer (administrator privileges required)
-3. **Launch** Smart Disk Analyzer from Start Menu
+3. **Launch** Smart Disk Analyzer from Start Menu or desktop shortcut
 4. **Start** managing your disks!
 
-> ⚠️ **Administrator Privileges Required**: Many partition operations require administrator access for safety.
+#### Linux Installation (Ubuntu/Debian)
+
+**GUI Method:**
+1. Download the `.deb` package from [Releases](https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/latest)
+2. Double-click the downloaded file
+3. Click "Install" in Software Center
+
+**Terminal Method:**
+```bash
+# Download the .deb file, then:
+sudo dpkg -i smart-disk-analyzer_1.0.0_amd64.deb
+sudo apt-get install -f  # Fix dependencies if needed
+```
+
+> ⚠️ **Administrator Privileges Required**: Many partition operations require administrator/root access for safety.
+
+> 📋 **System Requirements**: Visit our [website](https://dharaneesh20.github.io/Smart-Disk-Analyser/#download) for detailed system requirements.
 
 ### For Developers
 
@@ -205,11 +246,22 @@ We welcome contributions! This is a community-driven open-source project.
 
 ### System Requirements
 
-- **OS**: Windows 11, Windows 10 (x86/x64)
-- **RAM**: 2 GB minimum, 4 GB recommended
-- **Disk**: 200 MB for installation
+#### Windows
+- **OS**: Windows 11, Windows 10 (x64)
+- **RAM**: 4 GB minimum, 8 GB recommended
+- **Disk**: 500 MB for installation
 - **Privileges**: Administrator access required
-- **Java**: Bundled with installer (no separate installation needed)
+- **Java**: Auto-detected or bundled with installer
+
+#### Linux (Ubuntu/Debian)
+- **OS**: Debian 11+, Ubuntu 20.04+, Linux Mint 20+
+- **RAM**: 4 GB minimum, 8 GB recommended
+- **Disk**: 500 MB for installation
+- **Privileges**: Root/sudo access required
+- **Java**: OpenJDK 17+ (auto-installed with package)
+- **Desktop**: GNOME, KDE, XFCE, or other desktop environment
+
+> 📋 For detailed requirements, visit our [website](https://dharaneesh20.github.io/Smart-Disk-Analyser/#download)
 
 ## 📊 Test Results
 

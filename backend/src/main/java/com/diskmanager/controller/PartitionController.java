@@ -21,7 +21,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Partition Manager", description = "APIs for partition management and analysis")
-@CrossOrigin(origins = "http://localhost:3000")
 public class PartitionController {
     
     private final PartitionService partitionService;

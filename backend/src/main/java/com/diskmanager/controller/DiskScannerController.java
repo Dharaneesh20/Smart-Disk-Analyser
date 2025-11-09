@@ -24,7 +24,6 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Disk Scanner", description = "APIs for disk scanning and file analysis")
-@CrossOrigin(origins = "http://localhost:3000")
 public class DiskScannerController {
     
     private final DiskScannerService diskScannerService;

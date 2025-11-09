@@ -7,7 +7,7 @@ Write-Host "========================================`n" -ForegroundColor Cyan
 
 $projectRoot = $PSScriptRoot
 
-Write-Host "⚠ This build will NOT be code signed" -ForegroundColor Yellow
+Write-Host "[WARNING] This build will NOT be code signed" -ForegroundColor Yellow
 Write-Host "  Windows SmartScreen will show warnings" -ForegroundColor Yellow
 Write-Host "  For production, run PowerShell as Administrator`n" -ForegroundColor Yellow
 
@@ -18,7 +18,7 @@ try {
     if (!(Test-Path "target\disk-cleanup-partition-assistant-1.0.0.jar")) {
         mvn clean package -DskipTests -q
     }
-    Write-Host "✓ Backend ready" -ForegroundColor Green
+    Write-Host "[OK] Backend ready" -ForegroundColor Green
 
     # Build frontend
     Write-Host "`n[2/3] Building Frontend..." -ForegroundColor Yellow
@@ -26,7 +26,7 @@ try {
     if (!(Test-Path "build")) {
         npm run build
     }
-    Write-Host "✓ Frontend ready" -ForegroundColor Green
+    Write-Host "[OK] Frontend ready" -ForegroundColor Green
 
     # Build Electron (directory only - no installer)
     Write-Host "`n[3/3] Building Electron App (portable)..." -ForegroundColor Yellow
@@ -44,7 +44,7 @@ try {
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host "`n========================================" -ForegroundColor Green
-        Write-Host "✅ Build Complete!" -ForegroundColor Green
+        Write-Host "[SUCCESS] Build Complete!" -ForegroundColor Green
         Write-Host "========================================" -ForegroundColor Green
 
         Write-Host "`nPortable app created at:" -ForegroundColor White
@@ -54,14 +54,14 @@ try {
         Write-Host "  cd electron\dist\win-unpacked" -ForegroundColor Cyan
         Write-Host "  .\`"Smart Disk Analyzer.exe`"`n" -ForegroundColor Cyan
 
-        Write-Host "⚠ Note: This is NOT an installer, just the app files" -ForegroundColor Yellow
+        Write-Host "[WARNING] Note: This is NOT an installer, just the app files" -ForegroundColor Yellow
         Write-Host "  To create an installer, run PowerShell as Administrator`n" -ForegroundColor Yellow
     } else {
         throw "Electron build failed!"
     }
 
 } catch {
-    Write-Host "`n❌ Build Failed!" -ForegroundColor Red
+    Write-Host "`n[ERROR] Build Failed!" -ForegroundColor Red
     Write-Host "Error: $_" -ForegroundColor Red
     Set-Location $projectRoot
     exit 1

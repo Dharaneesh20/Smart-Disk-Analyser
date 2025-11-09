@@ -16,7 +16,7 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw "Backend build failed!"
     }
-    Write-Host "✓ Backend built successfully" -ForegroundColor Green
+    Write-Host "[OK] Backend built successfully" -ForegroundColor Green
 
     # Step 2: Build Frontend
     Write-Host "`n[2/5] Building Frontend (React)..." -ForegroundColor Yellow
@@ -25,7 +25,7 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw "Frontend build failed!"
     }
-    Write-Host "✓ Frontend built successfully" -ForegroundColor Green
+    Write-Host "[OK] Frontend built successfully" -ForegroundColor Green
 
     # Step 3: Setup Electron
     Write-Host "`n[3/5] Setting up Electron..." -ForegroundColor Yellow
@@ -36,17 +36,17 @@ try {
             throw "Electron npm install failed!"
         }
     }
-    Write-Host "✓ Electron setup complete" -ForegroundColor Green
+    Write-Host "[OK] Electron setup complete" -ForegroundColor Green
 
     # Step 4: Handle JRE (Optional)
     Write-Host "`n[4/5] Checking for JRE..." -ForegroundColor Yellow
     $jrePath = "$projectRoot\electron\jre"
     
     if (Test-Path $jrePath) {
-        Write-Host "✓ JRE found at $jrePath - will be bundled" -ForegroundColor Green
+        Write-Host "[OK] JRE found at $jrePath - will be bundled" -ForegroundColor Green
         $bundleJRE = $true
     } else {
-        Write-Host "⚠ JRE not found - building without embedded JRE" -ForegroundColor Yellow
+        Write-Host "[WARNING] JRE not found - building without embedded JRE" -ForegroundColor Yellow
         Write-Host "  Application will require Java 17+ installed on target system" -ForegroundColor Yellow
         Write-Host "`n  To bundle JRE, download from:" -ForegroundColor Cyan
         Write-Host "  https://adoptium.net/temurin/releases/?version=17" -ForegroundColor Cyan
@@ -62,7 +62,7 @@ try {
         }
         
         $packageJson | ConvertTo-Json -Depth 10 | Set-Content $packageJsonPath
-        Write-Host "✓ Configured build without JRE" -ForegroundColor Green
+        Write-Host "[OK] Configured build without JRE" -ForegroundColor Green
         $bundleJRE = $false
     }
 
@@ -74,15 +74,15 @@ try {
     $env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
 
     # Build for Windows x64 (64-bit) - Most common
-    Write-Host "Building for Windows x64 (64-bit)..." -ForegroundColor Cyan
+    Write-Host "Building for Windows x64 64-bit..." -ForegroundColor Cyan
     npm run build:win
     if ($LASTEXITCODE -ne 0) {
         throw "Windows x64 build failed!"
     }
-    Write-Host "✓ Windows x64 build complete" -ForegroundColor Green
+    Write-Host "[OK] Windows x64 build complete" -ForegroundColor Green
 
     Write-Host "`n========================================" -ForegroundColor Green
-    Write-Host "✅ Build Complete!" -ForegroundColor Green
+    Write-Host "[SUCCESS] Build Complete!" -ForegroundColor Green
     Write-Host "========================================" -ForegroundColor Green
 
     Write-Host "`nBuilt applications can be found in:" -ForegroundColor White
@@ -92,19 +92,19 @@ try {
         Write-Host "Available installers:" -ForegroundColor White
         Get-ChildItem "$projectRoot\electron\dist" -Filter "*.exe" | ForEach-Object {
             $size = [math]::Round($_.Length / 1MB, 2)
-            Write-Host "  ✓ $($_.Name) ($size MB)" -ForegroundColor Green
+            Write-Host "  [OK] $($_.Name) - Size: $size MB" -ForegroundColor Green
         }
     }
 
     if (!$bundleJRE) {
-        Write-Host "`n⚠ IMPORTANT: This build requires Java 17+ on target systems!" -ForegroundColor Yellow
+        Write-Host "`n[WARNING] IMPORTANT: This build requires Java 17+ on target systems!" -ForegroundColor Yellow
         Write-Host "  Users must have Java installed to run the application." -ForegroundColor Yellow
     }
 
     Write-Host "`n" -ForegroundColor White
 
 } catch {
-    Write-Host "`n❌ Build Failed!" -ForegroundColor Red
+    Write-Host "`n[ERROR] Build Failed!" -ForegroundColor Red
     Write-Host "Error: $_" -ForegroundColor Red
     Set-Location $projectRoot
     exit 1
