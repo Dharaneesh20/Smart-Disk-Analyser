@@ -60,23 +60,21 @@ function updateDownloadLinks() {
         asset.name.endsWith('.deb')
     );
 
-    // Update download buttons
-    if (installer) {
-        const installerBtn = document.getElementById('download-installer');
+    // Update download buttons - only update if assets are found
+    const installerBtn = document.getElementById('download-installer');
+    const portableBtn = document.getElementById('download-portable');
+    const debBtn = document.getElementById('download-deb');
+    
+    if (installer && installerBtn) {
         installerBtn.href = installer.browser_download_url;
-        installerBtn.onclick = null; // Remove fallback onclick
     }
 
-    if (portable) {
-        const portableBtn = document.getElementById('download-portable');
+    if (portable && portableBtn) {
         portableBtn.href = portable.browser_download_url;
-        portableBtn.onclick = null; // Remove fallback onclick
     }
 
-    if (debPackage) {
-        const debBtn = document.getElementById('download-deb');
+    if (debPackage && debBtn) {
         debBtn.href = debPackage.browser_download_url;
-        debBtn.onclick = null; // Remove fallback onclick
     }
 }
 
@@ -84,18 +82,9 @@ function updateDownloadLinks() {
  * Setup fallback links if GitHub API is unavailable
  */
 function setupFallbackLinks() {
-    const installerBtn = document.getElementById('download-installer');
-    const portableBtn = document.getElementById('download-portable');
-    
-    // Use direct link to the latest Windows installer
-    const installerUrl = 'https://github.com/Dharaneesh20/Smart-Disk-Analyser/releases/download/Windows-11-x86/Smart.Disk.Analyzer.Setup.1.0.0.exe';
-    const releasesUrl = `https://github.com/${GITHUB_REPO}/releases/latest`;
-    
-    installerBtn.href = installerUrl;
-    portableBtn.href = releasesUrl;
-    
-    installerBtn.onclick = null;
-    portableBtn.onclick = null;
+    // Links are already set in HTML with direct URLs
+    // This function is kept for potential future use
+    console.log('Using direct download links as fallback');
 }
 
 /**
@@ -208,17 +197,17 @@ function setupDownloadButtons() {
     const debBtn = document.getElementById('download-deb');
 
     installerBtn.addEventListener('click', function(e) {
-        showDownloadLoading(this);
+        // Don't prevent default - let the link work
         trackDownload('installer');
     });
 
     portableBtn.addEventListener('click', function(e) {
-        showDownloadLoading(this);
+        // Don't prevent default - let the link work
         trackDownload('portable');
     });
 
     debBtn.addEventListener('click', function(e) {
-        showDownloadLoading(this);
+        // Don't prevent default - let the link work
         trackDownload('deb');
     });
 }
@@ -400,6 +389,5 @@ if (document.readyState === 'loading') {
     init();
 }
 
-// Export functions for inline use
-window.downloadRelease = downloadRelease;
+// Export functions for inline use (if needed in future)
 window.showPlatform = showPlatform;
