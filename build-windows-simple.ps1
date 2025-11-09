@@ -70,6 +70,9 @@ try {
     Write-Host "`n[5/5] Building Electron Application..." -ForegroundColor Yellow
     Set-Location "$projectRoot\electron"
 
+    # Set environment to skip code signing
+    $env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
+
     # Build for Windows x64 (64-bit) - Most common
     Write-Host "Building for Windows x64 (64-bit)..." -ForegroundColor Cyan
     npm run build:win

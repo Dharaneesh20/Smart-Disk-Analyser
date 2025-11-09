@@ -31,7 +31,8 @@
           ]
         }
       ],
-      "requestedExecutionLevel": "requireAdministrator"
+      "requestedExecutionLevel": "requireAdministrator",
+      "sign": null
     },
     "nsis": {
       "oneClick": false,
